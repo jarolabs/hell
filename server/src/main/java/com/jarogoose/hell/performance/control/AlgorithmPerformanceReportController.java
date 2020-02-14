@@ -1,6 +1,6 @@
-package com.jarogoose.taskmanager.performance.control;
+package com.jarogoose.hell.performance.control;
 
-import com.jarogoose.taskmanager.performance.execute.CollectionWorkApi;
+import com.jarogoose.hell.performance.execute.CollectionWorkApi;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

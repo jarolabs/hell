@@ -1,4 +1,4 @@
-package com.jarogoose.taskmanager.performance.persist;
+package com.jarogoose.hell.performance.persist;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

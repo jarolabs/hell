@@ -1,7 +1,7 @@
-package com.jarogoose.taskmanager.performance.execute;
+package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.taskmanager.performance.persist.AlgorithmExecution.Type;
-import com.jarogoose.taskmanager.performance.persist.MeasureSummary.Position;
+import com.jarogoose.hell.performance.persist.AlgorithmExecution.Type;
+import com.jarogoose.hell.performance.persist.MeasureSummary.Position;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

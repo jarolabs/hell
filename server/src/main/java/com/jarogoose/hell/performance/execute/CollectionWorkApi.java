@@ -1,12 +1,12 @@
-package com.jarogoose.taskmanager.performance.execute;
+package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.taskmanager.performance.control.CollectionsCheckupConfig;
-import com.jarogoose.taskmanager.performance.control.ExecutionSummaryRow;
-import com.jarogoose.taskmanager.performance.persist.AlgorithmExecution;
-import com.jarogoose.taskmanager.performance.persist.AlgorithmExecution.Type;
-import com.jarogoose.taskmanager.performance.persist.AlgorithmExecutionRepository;
-import com.jarogoose.taskmanager.performance.persist.MeasureSummary;
-import com.jarogoose.taskmanager.performance.persist.MeasureSummary.Position;
+import com.jarogoose.hell.performance.control.CollectionsCheckupConfig;
+import com.jarogoose.hell.performance.control.ExecutionSummaryRow;
+import com.jarogoose.hell.performance.persist.AlgorithmExecution;
+import com.jarogoose.hell.performance.persist.AlgorithmExecution.Type;
+import com.jarogoose.hell.performance.persist.AlgorithmExecutionRepository;
+import com.jarogoose.hell.performance.persist.MeasureSummary;
+import com.jarogoose.hell.performance.persist.MeasureSummary.Position;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;

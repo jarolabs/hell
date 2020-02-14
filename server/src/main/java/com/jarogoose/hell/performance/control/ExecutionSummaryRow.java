@@ -1,4 +1,4 @@
-package com.jarogoose.taskmanager.performance.control;
+package com.jarogoose.hell.performance.control;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
