@@ -1,0 +1,25 @@
+package com.jarogoose.taskmanager.performance.persist;
+
+import java.util.Collection;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AlgorithmExecution {
+
+  public enum Type {
+    ARRAY_LIST,
+    LINKED_LIST,
+  }
+
+  @Id
+  private long id;
+  private Type type;
+  private long size;
+  private long randomization;
+  private Collection<MeasureSummary> executions;
+}

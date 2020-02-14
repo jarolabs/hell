@@ -1,0 +1,7 @@
+.display-one-column {
+  display: inline-grid;
+}
+
+mat-chip-list {
+  width: 300px;
+}
