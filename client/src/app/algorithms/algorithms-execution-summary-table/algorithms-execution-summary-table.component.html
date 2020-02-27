@@ -3,6 +3,7 @@
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Quick Filter">
     </mat-form-field>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
   </mat-card-header>
 
   <mat-card-content>

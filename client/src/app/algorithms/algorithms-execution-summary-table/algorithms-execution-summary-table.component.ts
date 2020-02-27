@@ -28,13 +28,17 @@ export class AlgorithmsExecutionSummaryTableComponent implements OnInit {
   constructor(private reportService: SummaryReportService) {}
 
   ngOnInit() {
-	this.reportService.load().subscribe(response => {
-		this.dataSource = new MatTableDataSource<ExecutionSummary>(response);
-		this.dataSource.sort = this.sort;
-	})
+    this.reportService.load().subscribe(response => {
+      this.dataSource = new MatTableDataSource<ExecutionSummary>(response);
+      this.dataSource.sort = this.sort;
+    })
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  clear() {
+	this.reportService.clear();
   }
 }

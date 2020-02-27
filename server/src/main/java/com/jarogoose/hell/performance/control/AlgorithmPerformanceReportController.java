@@ -27,7 +27,7 @@ public class AlgorithmPerformanceReportController {
   }
 
   @GetMapping("/show-report")
-  public Collection<ExecutionSummaryRow> showReport() {
+  public  Collection<ExecutionSummaryRow> showReport() {
     return service.generateSummaryReport();
   }
 

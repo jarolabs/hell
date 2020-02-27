@@ -25,4 +25,8 @@ export class SummaryReportService {
   load(): Observable<ExecutionSummary[]> {
     return this.http.get<ExecutionSummary[]>("//localhost:8080/show-report")
   }
+
+  clear() {
+	this.http.delete("//localhost:8080/clear").subscribe();
+  }
 }

@@ -45,6 +45,7 @@ export class CollectionsCheckupRunnerComponent implements OnInit {
 	  position: this.selectedPosition.value,
 	  size: this.sizeInputValue.value,
 	  randomization: this.randomizationInputValue.value,
+      times: this.times.value,
 	}
 	this.service.runCheckup(configs).subscribe();
   }

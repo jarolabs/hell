@@ -7,6 +7,7 @@ export interface CollectionsCheckupConfigs {
   position: string;
   size: number;
   randomization: number;
+  times: number;
 }
 
 @Injectable({
