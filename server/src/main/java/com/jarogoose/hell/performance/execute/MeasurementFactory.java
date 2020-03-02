@@ -1,7 +1,7 @@
 package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.hell.performance.persist.ExecutionConfiguration.Type;
-import com.jarogoose.hell.performance.persist.MeasureSummary.Position;
+import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration.Type;
+import com.jarogoose.hell.performance.persist.data.MeasureSummary.Position;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

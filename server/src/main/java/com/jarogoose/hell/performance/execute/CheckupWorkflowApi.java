@@ -3,10 +3,10 @@ package com.jarogoose.hell.performance.execute;
 import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.toFactory;
 
 import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
-import com.jarogoose.hell.performance.persist.ExecutionConfiguration;
-import com.jarogoose.hell.performance.persist.ExecutionConfiguration.Type;
-import com.jarogoose.hell.performance.persist.AlgorithmExecutionRepository;
-import com.jarogoose.hell.performance.persist.MeasureSummary;
+import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration;
+import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration.Type;
+import com.jarogoose.hell.performance.persist.ExecutionConfigurationStorage;
+import com.jarogoose.hell.performance.persist.data.MeasureSummary;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.Callable;
@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckupWorkflowApi {
 
-  private AlgorithmExecutionRepository storage;
+  private ExecutionConfigurationStorage storage;
   private ExecutorService executor;
 
   @Autowired
-  public CheckupWorkflowApi(AlgorithmExecutionRepository storage, ExecutorService executor) {
+  public CheckupWorkflowApi(ExecutionConfigurationStorage storage, ExecutorService executor) {
     this.storage = storage;
     this.executor = executor;
   }

@@ -1,4 +1,4 @@
-package com.jarogoose.hell.performance.persist;
+package com.jarogoose.hell.performance.persist.data;
 
 import java.util.Collection;
 import lombok.AllArgsConstructor;

@@ -2,10 +2,10 @@ package com.jarogoose.hell.performance.execute;
 
 import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
 import com.jarogoose.hell.performance.control.response.ExecutionSummaryRowModel;
-import com.jarogoose.hell.performance.persist.ExecutionConfiguration;
-import com.jarogoose.hell.performance.persist.ExecutionConfiguration.Type;
-import com.jarogoose.hell.performance.persist.MeasureSummary;
-import com.jarogoose.hell.performance.persist.MeasureSummary.Position;
+import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration;
+import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration.Type;
+import com.jarogoose.hell.performance.persist.data.MeasureSummary;
+import com.jarogoose.hell.performance.persist.data.MeasureSummary.Position;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
