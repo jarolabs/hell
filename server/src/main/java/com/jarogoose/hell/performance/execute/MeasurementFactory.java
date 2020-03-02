@@ -33,6 +33,7 @@ class MeasurementFactory {
         this.tokens = new LinkedList<>();
         return;
     }
+    // TODO : Make specific error
     throw new RuntimeException();
   }
 
