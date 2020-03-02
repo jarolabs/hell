@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlgorithmExecution {
+public class ExecutionConfiguration {
 
   public enum Type {
     ARRAY_LIST,

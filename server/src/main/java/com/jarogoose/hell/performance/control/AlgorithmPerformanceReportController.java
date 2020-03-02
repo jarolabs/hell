@@ -1,6 +1,9 @@
 package com.jarogoose.hell.performance.control;
 
-import com.jarogoose.hell.performance.execute.CollectionWorkApi;
+import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
+import com.jarogoose.hell.performance.control.response.ExecutionSummaryRowModel;
+import com.jarogoose.hell.performance.execute.CheckupWorkflowApi;
+import com.jarogoose.hell.performance.execute.SummaryReportApi;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,25 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AlgorithmPerformanceReportController {
 
-  private CollectionWorkApi service;
+  private CheckupWorkflowApi checkupWorkflowApi;
+  private SummaryReportApi summaryReportApi;
 
   @Autowired
-  public AlgorithmPerformanceReportController(CollectionWorkApi service) {
-    this.service = service;
+  public AlgorithmPerformanceReportController(
+      CheckupWorkflowApi checkupWorkflowApi,
+      SummaryReportApi summaryReportApi) {
+    this.checkupWorkflowApi = checkupWorkflowApi;
+    this.summaryReportApi = summaryReportApi;
   }
 
   @PostMapping("/run-collections-checkup")
-  public void runCollectionsCheckup(@RequestBody CollectionsCheckupConfig config) {
-    service.measureCollectionPerformance(config);
+  public void runCollectionsCheckup(@RequestBody CheckupConfigurationModel config) {
+    checkupWorkflowApi.measureCollectionPerformance(config);
   }
 
   @GetMapping("/show-report")
-  public Collection<ExecutionSummaryRow> showReport() {
-    return service.generateSummaryReport();
+  public Collection<ExecutionSummaryRowModel> showReport() {
+    return summaryReportApi.generateSummaryReport();
   }
 
   @DeleteMapping("/clear")
   public void clearSummary() {
-    service.clear();
+    summaryReportApi.clear();
   }
 }
