@@ -1,4 +1,4 @@
-package com.jarogoose.hell.performance.control;
+package com.jarogoose.hell.performance.control.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(fluent = true)
 @ToString
-public class CollectionsCheckupConfig {
+public class WorkflowConfigurationRequest {
   @JsonProperty private final String type;
   @JsonProperty private final String position;
   @JsonProperty private final int size;

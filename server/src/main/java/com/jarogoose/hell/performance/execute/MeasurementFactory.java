@@ -1,7 +1,7 @@
 package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.hell.performance.persist.AlgorithmExecution.Type;
-import com.jarogoose.hell.performance.persist.MeasureSummary.Position;
+import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Type;
+import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Position;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -124,5 +124,15 @@ class MeasurementFactory {
     public MeasurementFactory with(int size, int randomization) {
       return new MeasurementFactory(type, position, size, randomization);
     }
+  }
+
+  @Override
+  public String toString() {
+    final String tab = "  - ";
+    return "Factory configurations:" + System.lineSeparator()
+        + tab + type + System.lineSeparator()
+        + tab + position + System.lineSeparator()
+        + tab + size + "s" + System.lineSeparator()
+        + tab + randomization + "r" + System.lineSeparator();
   }
 }
