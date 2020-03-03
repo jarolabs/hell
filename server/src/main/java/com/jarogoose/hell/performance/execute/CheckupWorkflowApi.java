@@ -1,12 +1,12 @@
 package com.jarogoose.hell.performance.execute;
 
+import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.toConfigurationKey;
 import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.toFactory;
 
 import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
-import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration;
-import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration.Type;
-import com.jarogoose.hell.performance.persist.ExecutionConfigurationStorage;
-import com.jarogoose.hell.performance.persist.data.MeasureSummary;
+import com.jarogoose.hell.performance.persist.ExecutionStorage;
+import com.jarogoose.hell.performance.persist.data.ExecutionTable;
+import com.jarogoose.hell.performance.persist.data.MeasurementData;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.Callable;
@@ -17,34 +17,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckupWorkflowApi {
 
-  private ExecutionConfigurationStorage storage;
+  private ExecutionStorage storage;
   private ExecutorService executor;
 
   @Autowired
-  public CheckupWorkflowApi(ExecutionConfigurationStorage storage, ExecutorService executor) {
+  public CheckupWorkflowApi(ExecutionStorage storage, ExecutorService executor) {
     this.storage = storage;
     this.executor = executor;
   }
 
   public void measureCollectionPerformance(CheckupConfigurationModel params) {
-    Callable<ExecutionConfiguration> task = () -> {
-      Collection<MeasureSummary> summary = run(params.times(), toFactory(params));
-
-      ExecutionConfiguration execution = new ExecutionConfiguration(
-          System.currentTimeMillis(),
-          Type.valueOf(params.type().toUpperCase()),
-          params.size(),
-          params.randomization(),
-          summary);
-
+    Callable<ExecutionTable> task = () -> {
+      Collection<MeasurementData> summary = run(params.times(), toFactory(params));
+      ExecutionTable execution = new ExecutionTable(toConfigurationKey(params), summary);
       storage.save(execution);
       return execution;
     };
     executor.submit(task);
   }
 
-  private Collection<MeasureSummary> run(int times, MeasurementFactory measure) {
-    Collection<MeasureSummary> measures = new ArrayList<>();
+  private Collection<MeasurementData> run(int times, MeasurementFactory measure) {
+    Collection<MeasurementData> measures = new ArrayList<>();
 
     for (int i = 0; i < times; i++) {
       measures.add(measure(measure));
@@ -52,20 +45,20 @@ public class CheckupWorkflowApi {
     return measures;
   }
 
-  private MeasureSummary measure(MeasurementFactory measure) {
+  private MeasurementData measure(MeasurementFactory measure) {
     final long genTime = measure.generation();
     final long sortTime = measure.sorting();
     final long addTime = measure.inserting();
     final long deleteTime = measure.deleting();
     final long retrieveTime = measure.retrieving();
 
-    return new MeasureSummary(
-        System.currentTimeMillis(),
-        measure.at(),
-        genTime,
-        sortTime,
-        addTime,
-        deleteTime,
-        retrieveTime);
+    final MeasurementData data = new MeasurementData();
+    data.setGenerateTimeNanos(genTime);
+    data.setSortTimeNanos(sortTime);
+    data.setAddTimeNanos(addTime);
+    data.setDeleteTimeNanos(deleteTime);
+    data.setRetrieveTimeNanos(retrieveTime);
+
+    return data;
   }
 }

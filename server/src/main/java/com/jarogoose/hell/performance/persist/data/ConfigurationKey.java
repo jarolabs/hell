@@ -3,12 +3,16 @@ package com.jarogoose.hell.performance.persist.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MeasureSummary {
+public class ConfigurationKey {
+
+  public enum Type {
+    ARRAY_LIST,
+    LINKED_LIST,
+  }
 
   public enum Position {
     BEGINNING,
@@ -16,12 +20,8 @@ public class MeasureSummary {
     END,
   }
 
-  @Id
-  private long id;
+  private Type type;
   private Position position;
-  private long generateTimeNanos;
-  private long sortTimeNanos;
-  private long addTimeNanos;
-  private long deleteTimeNanos;
-  private long retrieveTimeNanos;
+  private long size;
+  private long randomization;
 }

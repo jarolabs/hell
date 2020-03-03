@@ -2,10 +2,11 @@ package com.jarogoose.hell.performance.execute;
 
 import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
 import com.jarogoose.hell.performance.control.response.ExecutionSummaryRowModel;
-import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration;
-import com.jarogoose.hell.performance.persist.data.ExecutionConfiguration.Type;
-import com.jarogoose.hell.performance.persist.data.MeasureSummary;
-import com.jarogoose.hell.performance.persist.data.MeasureSummary.Position;
+import com.jarogoose.hell.performance.persist.data.ConfigurationKey;
+import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Position;
+import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Type;
+import com.jarogoose.hell.performance.persist.data.ExecutionTable;
+import com.jarogoose.hell.performance.persist.data.MeasurementData;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -15,28 +16,28 @@ final class CollectionWorkflowMapper {
   private CollectionWorkflowMapper() {}
 
   static Collection<ExecutionSummaryRowModel> toExecutionSummaryRows(
-      List<ExecutionConfiguration> executions) {
+      List<ExecutionTable> executions) {
     HashSet<ExecutionSummaryRowModel> rows = new HashSet<>();
-    for (ExecutionConfiguration config : executions) {
-      for (MeasureSummary summary : config.getExecutions()) {
-        rows.add(toExecutionSummaryRowModel(config, summary));
+    for (ExecutionTable record : executions) {
+      for (MeasurementData measurement : record.getData()) {
+        rows.add(toExecutionSummaryRowModel(record.getKey(), measurement));
       }
     }
     return rows;
   }
 
   static ExecutionSummaryRowModel toExecutionSummaryRowModel(
-      ExecutionConfiguration config, MeasureSummary summary) {
+      ConfigurationKey config, MeasurementData measuremen) {
     return ExecutionSummaryRowModel.builder()
         .type(config.getType().name())
         .size(config.getSize())
         .randomization(config.getRandomization())
-        .position(summary.getPosition().name())
-        .genTime(summary.getGenerateTimeNanos())
-        .sortTime(summary.getSortTimeNanos())
-        .addTime(summary.getAddTimeNanos())
-        .deleteTime(summary.getDeleteTimeNanos())
-        .findTime(summary.getRetrieveTimeNanos())
+        .position(config.getPosition().name())
+        .genTime(measuremen.getGenerateTimeNanos())
+        .sortTime(measuremen.getSortTimeNanos())
+        .addTime(measuremen.getAddTimeNanos())
+        .deleteTime(measuremen.getDeleteTimeNanos())
+        .findTime(measuremen.getRetrieveTimeNanos())
         .timeMeasure("Millis")
         .build();
   }
@@ -48,5 +49,14 @@ final class CollectionWorkflowMapper {
         .of(type)
         .at(position)
         .with(params.size(), params.randomization());
+  }
+
+  static ConfigurationKey toConfigurationKey(CheckupConfigurationModel config) {
+    return new ConfigurationKey(
+        Type.valueOf(config.type().toUpperCase()),
+        Position.valueOf(config.position().toUpperCase()),
+        config.size(),
+        config.randomization()
+    );
   }
 }

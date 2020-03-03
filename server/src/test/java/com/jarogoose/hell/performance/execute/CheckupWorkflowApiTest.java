@@ -1,6 +1,6 @@
 package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.hell.performance.persist.ExecutionConfigurationStorage;
+import com.jarogoose.hell.performance.persist.ExecutionStorage;
 import java.util.concurrent.Executors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +18,7 @@ class CheckupWorkflowApiTest {
   private CheckupWorkflowApi api;
 
   @Mock
-  ExecutionConfigurationStorage mockStorage;
+  ExecutionStorage mockStorage;
 
   @BeforeEach
   void beforeAll() {

@@ -9,17 +9,8 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExecutionConfiguration {
-
-  public enum Type {
-    ARRAY_LIST,
-    LINKED_LIST,
-  }
-
+public class ExecutionTable {
   @Id
-  private long id;
-  private Type type;
-  private long size;
-  private long randomization;
-  private Collection<MeasureSummary> executions;
+  private ConfigurationKey key;
+  Collection<MeasurementData> data;
 }
