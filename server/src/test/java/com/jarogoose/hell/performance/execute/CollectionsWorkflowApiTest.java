@@ -27,25 +27,11 @@ class CollectionsWorkflowApiTest {
   }
 
   @Test()
-  @DisplayName("Contains two summary rows when db returns two executions")
-  void generateSummaryReport() {
-//    // init
-//    MeasureSummary summary = new MeasureSummary();
-//    summary.setPosition(Position.BEGINNING);
-//    List<MeasureSummary> summs = Collections.singletonList(summary);
-//    ExecutionConfiguration execution = new ExecutionConfiguration();
-//    execution.setExecutions(summs);
-//    execution.setType(Type.ARRAY_LIST);
-//
-//    // mock
-//    List<ExecutionConfiguration> listOfTwo = Arrays.asList(execution, execution);
-//    when(mockStorage.findAll()).thenReturn(listOfTwo);
-//
-//    // execute
-//    Collection<ExecutionSummaryRowModel> actual = api
-//        .generateSummaryReport();
-//
-//    // verify
-//    Assertions.assertEquals(2, actual.size());
+  @DisplayName("")
+  void test() {
+    // init
+    // mock
+    // execute
+    // verify
   }
 }

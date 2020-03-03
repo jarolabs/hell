@@ -4,7 +4,7 @@ import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.to
 
 import com.jarogoose.hell.performance.control.message.ExecutionSummaryRowResponse;
 import com.jarogoose.hell.performance.persist.ExecutionStorage;
-import com.jarogoose.hell.performance.persist.data.ExecutionTable;
+import com.jarogoose.hell.performance.persist.data.ExecutionRecord;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class SummaryReportApi {
   }
 
   public Collection<ExecutionSummaryRowResponse> generateSummaryReport() {
-    List<ExecutionTable> executions = storage.findAll();
+    List<ExecutionRecord> executions = storage.findAll();
     return toExecutionSummaryRows(executions);
   }
 

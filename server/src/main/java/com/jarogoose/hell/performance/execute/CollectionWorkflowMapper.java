@@ -5,7 +5,7 @@ import com.jarogoose.hell.performance.control.message.ExecutionSummaryRowRespons
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey;
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Position;
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Type;
-import com.jarogoose.hell.performance.persist.data.ExecutionTable;
+import com.jarogoose.hell.performance.persist.data.ExecutionRecord;
 import com.jarogoose.hell.performance.persist.data.MeasurementData;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,9 +16,9 @@ final class CollectionWorkflowMapper {
   private CollectionWorkflowMapper() {}
 
   static Collection<ExecutionSummaryRowResponse> toExecutionSummaryRows(
-      List<ExecutionTable> executions) {
+      List<ExecutionRecord> executions) {
     HashSet<ExecutionSummaryRowResponse> rows = new HashSet<>();
-    for (ExecutionTable record : executions) {
+    for (ExecutionRecord record : executions) {
       for (MeasurementData measurement : record.getData()) {
         rows.add(toExecutionSummaryRowModel(record.getKey(), measurement));
       }

@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExecutionTable {
+public class ExecutionRecord {
   @Id
   private ConfigurationKey key;
   Collection<MeasurementData> data;

@@ -5,7 +5,7 @@ import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.to
 
 import com.jarogoose.hell.performance.control.message.WorkflowConfigurationRequest;
 import com.jarogoose.hell.performance.persist.ExecutionStorage;
-import com.jarogoose.hell.performance.persist.data.ExecutionTable;
+import com.jarogoose.hell.performance.persist.data.ExecutionRecord;
 import com.jarogoose.hell.performance.persist.data.MeasurementData;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,9 +27,9 @@ public class CollectionsWorkflowApi {
   }
 
   public void measurePerformance(WorkflowConfigurationRequest params) {
-    Callable<ExecutionTable> task = () -> {
+    Callable<ExecutionRecord> task = () -> {
       Collection<MeasurementData> summary = run(params.times(), toFactory(params));
-      ExecutionTable execution = new ExecutionTable(toConfigurationKey(params), summary);
+      ExecutionRecord execution = new ExecutionRecord(toConfigurationKey(params), summary);
       storage.save(execution);
       return execution;
     };
