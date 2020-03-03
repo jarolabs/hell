@@ -3,7 +3,7 @@ package com.jarogoose.hell.performance.execute;
 import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.toConfigurationKey;
 import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.toFactory;
 
-import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
+import com.jarogoose.hell.performance.control.message.WorkflowConfigurationRequest;
 import com.jarogoose.hell.performance.persist.ExecutionStorage;
 import com.jarogoose.hell.performance.persist.data.ExecutionTable;
 import com.jarogoose.hell.performance.persist.data.MeasurementData;
@@ -15,18 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CheckupWorkflowApi {
+public class CollectionsWorkflowApi {
 
   private ExecutionStorage storage;
   private ExecutorService executor;
 
   @Autowired
-  public CheckupWorkflowApi(ExecutionStorage storage, ExecutorService executor) {
+  public CollectionsWorkflowApi(ExecutionStorage storage, ExecutorService executor) {
     this.storage = storage;
     this.executor = executor;
   }
 
-  public void measureCollectionPerformance(CheckupConfigurationModel params) {
+  public void measurePerformance(WorkflowConfigurationRequest params) {
     Callable<ExecutionTable> task = () -> {
       Collection<MeasurementData> summary = run(params.times(), toFactory(params));
       ExecutionTable execution = new ExecutionTable(toConfigurationKey(params), summary);

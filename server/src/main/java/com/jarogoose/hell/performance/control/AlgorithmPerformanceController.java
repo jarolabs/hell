@@ -1,8 +1,8 @@
 package com.jarogoose.hell.performance.control;
 
-import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
-import com.jarogoose.hell.performance.control.response.ExecutionSummaryRowModel;
-import com.jarogoose.hell.performance.execute.CheckupWorkflowApi;
+import com.jarogoose.hell.performance.control.message.WorkflowConfigurationRequest;
+import com.jarogoose.hell.performance.control.message.ExecutionSummaryRowResponse;
+import com.jarogoose.hell.performance.execute.CollectionsWorkflowApi;
 import com.jarogoose.hell.performance.execute.SummaryReportApi;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class AlgorithmPerformanceReportController {
+public class AlgorithmPerformanceController {
 
-  private CheckupWorkflowApi checkupWorkflowApi;
+  private CollectionsWorkflowApi collectionsWorkflowApi;
   private SummaryReportApi summaryReportApi;
 
   @Autowired
-  public AlgorithmPerformanceReportController(
-      CheckupWorkflowApi checkupWorkflowApi,
+  public AlgorithmPerformanceController(
+      CollectionsWorkflowApi collectionsWorkflowApi,
       SummaryReportApi summaryReportApi) {
-    this.checkupWorkflowApi = checkupWorkflowApi;
+    this.collectionsWorkflowApi = collectionsWorkflowApi;
     this.summaryReportApi = summaryReportApi;
   }
 
   @PostMapping("/run-collections-checkup")
-  public void runCollectionsCheckup(@RequestBody CheckupConfigurationModel config) {
-    checkupWorkflowApi.measureCollectionPerformance(config);
+  public void runCollectionsCheckup(@RequestBody WorkflowConfigurationRequest config) {
+    collectionsWorkflowApi.measurePerformance(config);
   }
 
   @GetMapping("/show-report")
-  public Collection<ExecutionSummaryRowModel> showReport() {
+  public Collection<ExecutionSummaryRowResponse> showReport() {
     return summaryReportApi.generateSummaryReport();
   }
 

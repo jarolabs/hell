@@ -13,9 +13,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class CheckupWorkflowApiTest {
+class CollectionsWorkflowApiTest {
 
-  private CheckupWorkflowApi api;
+  private CollectionsWorkflowApi api;
 
   @Mock
   ExecutionStorage mockStorage;
@@ -23,7 +23,7 @@ class CheckupWorkflowApiTest {
   @BeforeEach
   void beforeAll() {
     MockitoAnnotations.initMocks(this);
-    api = new CheckupWorkflowApi(mockStorage, Executors.newSingleThreadExecutor());
+    api = new CollectionsWorkflowApi(mockStorage, Executors.newSingleThreadExecutor());
   }
 
   @Test()

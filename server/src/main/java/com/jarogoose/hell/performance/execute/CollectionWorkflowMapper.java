@@ -1,7 +1,7 @@
 package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.hell.performance.control.request.CheckupConfigurationModel;
-import com.jarogoose.hell.performance.control.response.ExecutionSummaryRowModel;
+import com.jarogoose.hell.performance.control.message.WorkflowConfigurationRequest;
+import com.jarogoose.hell.performance.control.message.ExecutionSummaryRowResponse;
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey;
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Position;
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Type;
@@ -15,9 +15,9 @@ final class CollectionWorkflowMapper {
 
   private CollectionWorkflowMapper() {}
 
-  static Collection<ExecutionSummaryRowModel> toExecutionSummaryRows(
+  static Collection<ExecutionSummaryRowResponse> toExecutionSummaryRows(
       List<ExecutionTable> executions) {
-    HashSet<ExecutionSummaryRowModel> rows = new HashSet<>();
+    HashSet<ExecutionSummaryRowResponse> rows = new HashSet<>();
     for (ExecutionTable record : executions) {
       for (MeasurementData measurement : record.getData()) {
         rows.add(toExecutionSummaryRowModel(record.getKey(), measurement));
@@ -26,9 +26,9 @@ final class CollectionWorkflowMapper {
     return rows;
   }
 
-  static ExecutionSummaryRowModel toExecutionSummaryRowModel(
+  static ExecutionSummaryRowResponse toExecutionSummaryRowModel(
       ConfigurationKey config, MeasurementData measuremen) {
-    return ExecutionSummaryRowModel.builder()
+    return ExecutionSummaryRowResponse.builder()
         .type(config.getType().name())
         .size(config.getSize())
         .randomization(config.getRandomization())
@@ -42,7 +42,7 @@ final class CollectionWorkflowMapper {
         .build();
   }
 
-  static MeasurementFactory toFactory(CheckupConfigurationModel params) {
+  static MeasurementFactory toFactory(WorkflowConfigurationRequest params) {
     final Type type = Type.valueOf(params.type().toUpperCase());
     final Position position =  Position.valueOf(params.position().toUpperCase());
     return MeasurementFactory.config()
@@ -51,7 +51,7 @@ final class CollectionWorkflowMapper {
         .with(params.size(), params.randomization());
   }
 
-  static ConfigurationKey toConfigurationKey(CheckupConfigurationModel config) {
+  static ConfigurationKey toConfigurationKey(WorkflowConfigurationRequest config) {
     return new ConfigurationKey(
         Type.valueOf(config.type().toUpperCase()),
         Position.valueOf(config.position().toUpperCase()),

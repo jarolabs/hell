@@ -2,8 +2,7 @@ package com.jarogoose.hell.performance.execute;
 
 import static com.jarogoose.hell.performance.execute.CollectionWorkflowMapper.toExecutionSummaryRows;
 
-import com.jarogoose.hell.performance.control.response.ExecutionSummaryRowModel;
-import com.jarogoose.hell.performance.persist.data.ConfigurationKey;
+import com.jarogoose.hell.performance.control.message.ExecutionSummaryRowResponse;
 import com.jarogoose.hell.performance.persist.ExecutionStorage;
 import com.jarogoose.hell.performance.persist.data.ExecutionTable;
 import java.util.Collection;
@@ -21,7 +20,7 @@ public class SummaryReportApi {
     this.storage = storage;
   }
 
-  public Collection<ExecutionSummaryRowModel> generateSummaryReport() {
+  public Collection<ExecutionSummaryRowResponse> generateSummaryReport() {
     List<ExecutionTable> executions = storage.findAll();
     return toExecutionSummaryRows(executions);
   }
