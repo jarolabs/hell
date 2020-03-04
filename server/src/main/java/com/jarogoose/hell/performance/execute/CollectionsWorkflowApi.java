@@ -27,6 +27,7 @@ public class CollectionsWorkflowApi {
     this.executor = executor;
   }
 
+  // TODO: refactor -> extract thread execution.
   public void measurePerformance(WorkflowConfigurationRequest params) {
     Callable<ExecutionRecord> task = () -> {
       Collection<MeasurementData> summary = run(params.times(), toFactory(params));
@@ -34,7 +35,7 @@ public class CollectionsWorkflowApi {
       storage.save(execution);
       return execution;
     };
-//    executor.submit(task);
+
     try {
       executor.invokeAll(Collections.singletonList(task));
     } catch (InterruptedException e) {
