@@ -12,9 +12,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class CollectionsWorkflowApi {
 
@@ -39,7 +41,8 @@ public class CollectionsWorkflowApi {
     try {
       executor.invokeAll(Collections.singletonList(task));
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      log.error(e.getMessage());
+      Thread.currentThread().interrupt();
     }
   }
 
