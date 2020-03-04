@@ -1,18 +1,15 @@
 package com.jarogoose.hell.performance.execute;
 
+import com.jarogoose.hell.performance.control.message.WorkflowConfigurationRequest;
 import com.jarogoose.hell.performance.persist.ExecutionStorage;
 import java.util.concurrent.Executors;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
 class CollectionsWorkflowApiTest {
 
   private CollectionsWorkflowApi api;
@@ -32,6 +29,8 @@ class CollectionsWorkflowApiTest {
     // init
     // mock
     // execute
+    api.measurePerformance(WorkflowConfigurationRequest.builder().build());
     // verify
+    Assertions.assertTrue(true);
   }
 }
