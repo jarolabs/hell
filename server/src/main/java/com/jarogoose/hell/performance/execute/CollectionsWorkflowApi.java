@@ -9,6 +9,7 @@ import com.jarogoose.hell.performance.persist.data.ExecutionRecord;
 import com.jarogoose.hell.performance.persist.data.MeasurementData;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class CollectionsWorkflowApi {
     this.executor = executor;
   }
 
+  // TODO: refactor -> extract thread execution.
   public void measurePerformance(WorkflowConfigurationRequest params) {
     Callable<ExecutionRecord> task = () -> {
       Collection<MeasurementData> summary = run(params.times(), toFactory(params));
@@ -33,7 +35,12 @@ public class CollectionsWorkflowApi {
       storage.save(execution);
       return execution;
     };
-    executor.submit(task);
+
+    try {
+      executor.invokeAll(Collections.singletonList(task));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   private Collection<MeasurementData> run(int times, MeasurementFactory measure) {
