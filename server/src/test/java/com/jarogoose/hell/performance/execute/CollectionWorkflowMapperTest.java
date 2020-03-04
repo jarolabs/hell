@@ -11,15 +11,21 @@ import com.jarogoose.hell.performance.persist.data.MeasurementData;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import org.junit.jupiter.api.DisplayName;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class CollectionWorkflowMapperTest {
 
   @Test()
-  @DisplayName("Convert a collection of persisted records into response model")
-  void toExecutionSummaryRows_mapsIntoCollectionOfSizeTwo() {
-    // init -> set up a record with two measurement records
+  void mapsIntoCollectionOfSizeTwo() {
+    // Scenario -> one record multiple summaries:
+    //  - define one configuration key with any data
+    //  - define two summaries with any data
+    //  - associate given key with summaries as one record
+    //  - map given record execution summary row
+    //  - verify there are two execution summary rows
+
+    // init
     ConfigurationKey key = new ConfigurationKey();
     key.setType(Type.ARRAY_LIST);
     key.setPosition(Position.BEGINNING);
@@ -28,8 +34,9 @@ class CollectionWorkflowMapperTest {
     ExecutionRecord record = new ExecutionRecord(key, data);
 
     // execute
+    List<ExecutionRecord> records = Collections.singletonList(record);
     Collection<ExecutionSummaryRowResponse> actual = CollectionWorkflowMapper
-        .toExecutionSummaryRows(Collections.singletonList(record));
+        .toExecutionSummaryRows(records);
 
     // verify
     assertEquals(2, actual.size());
