@@ -1,7 +1,7 @@
 package com.jarogoose.hell.performance.execute;
 
-import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Type;
 import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Position;
+import com.jarogoose.hell.performance.persist.data.ConfigurationKey.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,6 +25,7 @@ class MeasurementFactory {
     this.position = position;
     this.size = size;
     this.randomization = randomization;
+
     switch (this.type) {
       case ARRAY_LIST:
         this.tokens = new ArrayList<>();
@@ -33,8 +34,9 @@ class MeasurementFactory {
         this.tokens = new LinkedList<>();
         return;
     }
-    // TODO : Make specific error
-    throw new RuntimeException();
+
+    final String errMessage = String.format("Type %s is not supported.", this.type);
+    throw new InvalidInitializationException(errMessage);
   }
 
   public static Config config() {
@@ -100,11 +102,22 @@ class MeasurementFactory {
       case END:
         return tokens.size() - 1;
     }
-    throw new RuntimeException();
+    final String errMessage = String.format("Position %s is not supported.", this.position);
+    throw new InvalidInitializationException(errMessage);
   }
 
   public Position at() {
     return position;
+  }
+
+  @Override
+  public String toString() {
+    final String tab = "  - ";
+    return "Factory configurations:" + System.lineSeparator()
+        + tab + type + System.lineSeparator()
+        + tab + position + System.lineSeparator()
+        + tab + size + "s" + System.lineSeparator()
+        + tab + randomization + "r" + System.lineSeparator();
   }
 
   public static class Config {
@@ -126,13 +139,10 @@ class MeasurementFactory {
     }
   }
 
-  @Override
-  public String toString() {
-    final String tab = "  - ";
-    return "Factory configurations:" + System.lineSeparator()
-        + tab + type + System.lineSeparator()
-        + tab + position + System.lineSeparator()
-        + tab + size + "s" + System.lineSeparator()
-        + tab + randomization + "r" + System.lineSeparator();
+  private static class InvalidInitializationException extends RuntimeException {
+
+    public InvalidInitializationException(String message) {
+      super(message);
+    }
   }
 }
